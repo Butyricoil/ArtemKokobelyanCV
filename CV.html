@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artem Kokobelyan - C# Developer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #5a4e3c;
+            --secondary-color: #8b7b56;
+            --accent-color: #a86d32;
+            --light-yellow: #fff9e6;
+            --medium-yellow: #ffefcc;
+            --dark-yellow: #f5e5b8;
+            --text-color: #333;
+            --light-text: #666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-yellow);
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--secondary-color);
+            position: relative;
+        }
+        
+        h1 {
+            margin-bottom: 5px;
+        }
+        
+        h1 a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        h1 a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--dark-yellow);
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin: 15px 0 5px;
+        }
+        
+        .title {
+            color: var(--secondary-color);
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .contact-btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .contact-btn.phone {
+            background-color: #7a9c5c;
+        }
+        
+        .contact-btn.email {
+            background-color: #c87c4c;
+        }
+        
+        .contact-btn.linkedin {
+            background-color: #0077b5;
+        }
+        
+        .contact-btn.github {
+            background-color: #5a4e3c;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            background: var(--medium-yellow);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .about {
+            line-height: 1.8;
+        }
+        
+        .languages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .language-item {
+            background: var(--dark-yellow);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+        
+        .experience-item, .education-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--dark-yellow);
+        }
+        
+        .experience-item:last-child, .education-item:last-child {
+            border-bottom: none;
+        }
+        
+        .company-period {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .location {
+            font-style: italic;
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        
+        .skill {
+            background: var(--dark-yellow);
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .pdf-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .pdf-button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .company-period {
+                flex-direction: column;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .pdf-button {
+                position: relative;
+                margin: 10px auto;
+                display: block;
+                top: 0;
+                right: 0;
+            }
+        }
+        
+        @media print {
+            .pdf-button, .contact-btn {
+                display: none;
+            }
+            
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #eee;
+                background: white;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="https://www.linkedin.com/in/artyomkokobelyan/" target="_blank">Artem Kokobelyan</a></h1>
+        <p class="title">C# Developer | 5+ years | ASP.NET</p>
+        
+        <button class="pdf-button" onclick="generatePDF()">
+            <i class="fas fa-file-pdf"></i>
+            Save as PDF
+        </button>
+        
+        <div class="contact-buttons">
+            <a href="tel:+37477960608" class="contact-btn phone">
+                <i class="fas fa-phone"></i>
+                +374 77 960 608
+            </a>
+            <a href="mailto:artyomkokobelyanwork@gmail.com" class="contact-btn email">
+                <i class="fas fa-envelope"></i>
+                Email Me
+            </a>
+            <a href="https://www.linkedin.com/in/artyomkokobelyan/" target="_blank" class="contact-btn linkedin">
+                <i class="fab fa-linkedin"></i>
+                LinkedIn
+            </a>
+            <a href="https://github.com/Butyricoil" target="_blank" class="contact-btn github">
+                <i class="fab fa-github"></i>
+                GitHub
+            </a>
+        </div>
+    </header>
+    
+    <section class="section about">
+        <h2>About</h2>
+        <p>I have over 5 years of experience working with C#, developing scripts in Unity, and building backends with ASP.NET Core. I've created microservices from scratch, migrated databases from PostgreSQL to ClickHouse, and introduced modern development methodologies. Notably, I developed notification microservices for a largescale ERP system and optimized team workflows.</p>
+        <p>I've also worked extensively with legacy systems, where I successfully introduced Swagger for API documentation and implemented linters to ensure code quality and consistency. Additionally, I handled highload scenarios by balancing system workloads, replaced a monolithic architecture with distributed microservices, and managed service orchestration to ensure scalability and reliability.</p>
+    </section>
+    
+    <section class="section">
+        <h2>Languages</h2>
+        <div class="languages">
+            <span class="language-item">English C1</span>
+            <span class="language-item">German A2</span>
+            <span class="language-item">Russian Native</span>
+            <span class="language-item">Armenian</span>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2>Experience</h2>
+        
+        <div class="experience-item">
+            <div class="company-period">
+                <span>C# Developer at SimCorp</span>
+                <span>Mar 2022 - Present · 3 yrs 7 mos</span>
+            </div>
+            <div class="location">Remote</div>
+            
+            <div class="skills">
+                <span class="skill">ASP.NET Core</span>
+                <span class="skill">PostgreSQL</span>
+                <span class="skill">RabbitMQ</span>
+                <span class="skill">Redis</span>
+                <span class="skill">REST API</span>
+                <span class="skill">Docker/Kubernetes</span>
+                <span class="skill">GitHub</span>
+                <span class="skill">Jenkins</span>
+                <span class="skill">xUnit</span>
+                <span class="skill">Moq</span>
+                <span class="skill">Git</span>
+                <span class="skill">DDD</span>
+                <span class="skill">SQL</span>
+                <span class="skill">T-SQL</span>
+                <span class="skill">MS SQL Server</span>
+                <span class="skill">gRPC</span>
+            </div>
+            
+            <p><strong>My Team:</strong> 18 people (8 backend, 3 frontend, 3 data science, 2 DevOps, 2 QA)</p>
+            
+            <h3>Key Tasks:</h3>
+            <ul>
+                <li>Migrated part of the database from a relational DB to a columnar DB to optimize performance and simplify workflows for data scientists, resulting in a <span class="highlight">63.7% faster metric loading time</span>.</li>
+                <li>Optimized the Finance Module by moving income/expense calculations to Redis with EF Core projections. Previously, reports were generated in 3 seconds; now in under 1 second. Bonus: the cache automatically invalidates when changes occur.</li>
+                <li>Introduced Swagger documentation for 20+ endpoints. Frontend developers no longer have to ask which parameters to send where. Auto-generated schemas and request examples significantly sped up integration.</li>
+                <li>Reduced code review time by <span class="highlight">16.8%</span> by introducing a JetBrains linter and configuring coding standards.</li>
+            </ul>
+            
+            <h3>Results:</h3>
+            <ul>
+                <li>Increased code review speed by <span class="highlight">16.8%</span>.</li>
+                <li>Increased DAU by <span class="highlight">8%</span> by adding a notification module.</li>
+                <li>Implemented SMS and email notification modules.</li>
+                <li>Automated routine work: replaced <span class="highlight">68%</span> of Excel-based processes with APIs, saving managers 20+ hours per week.</li>
+                <li>Acted as a bridge between business and technical teams, translating "we need this" into Jira tasks without information loss, ensuring marketing and development speak the same language.</li>
+            </ul>
+        </div>
+        
+        <div class="experience-item">
+            <div class="company-period">
+                <span>C# Developer at IT Teams</span>
+                <span>Mar 2020 - Feb 2022 · 2 yrs</span>
+            </div>
+            <div class="location">Remote</div>
+            
+            <div class="skills">
+                <span class="skill">Unity C#</span>
+                <span class="skill">Zenject</span>
+                <span class="skill">DOTween</span>
+                <span class="skill">Firebase</span>
+                <span class="skill">LeoECS</span>
+                <span class="skill">AppLovin MAX</span>
+                <span class="skill">Unity Ads</span>
+                <span class="skill">PlayFab</span>
+            </div>
+            
+            <p><strong>Team:</strong> 10 members (3 developers, 2 game designers, 2 artists)</p>
+            
+            <h3>Key Responsibilities:</h3>
+            <ul>
+                <li>Developed hyper-casual game from scratch (gameplay, UI, Firebase integration)</li>
+                <li>Implemented CI/CD pipeline (GitHub Actions → Google Play)</li>
+                <li>Game economy balancing</li>
+            </ul>
+            
+            <h3>Achievements:</h3>
+            <ul>
+                <li>Reduced crash incidents by <span class="highlight">72.5%</span></li>
+                <li>Set up Firebase Crashlytics and used telemetry for bug fixing</li>
+                <li>Accelerated development cycle by <span class="highlight">41.3%</span></li>
+                <li>Optimized performance for low-end Android devices</li>
+            </ul>
+        </div>
+    </section>
+    
+    <section class="section">
+        <h2>Education</h2>
+        
+        <div class="education-item">
+            <div class="company-period">
+                <span>Kuban State University</span>
+                <span>2022 - 2024</span>
+            </div>
+            <p>Master's Degree, Informatics</p>
+        </div>
+        
+        <div class="education-item">
+            <div class="company-period">
+                <span>Kuban State University</span>
+                <span>Sep 2018 - Jul 2022</span>
+            </div>
+            <p>Bachelor's degree, Faculty of Computer Technologies and Applied Mathematics</p>
+        </div>
+    </section>
+
+    <script>
+        function generatePDF() {
+            // Выберите элемент, который нужно преобразовать в PDF
+            const element = document.body;
+            
+            // Настройки для PDF
+            const options = {
+                margin: 10,
+                filename: 'Artem_Kokobelyan_CV.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Создаем PDF и скачиваем его
+            html2pdf().set(options).from(element).save();
+        }
+        
+        // Добавляем обработчики для кнопок контактов
+        document.querySelectorAll('.contact-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Для кнопки телефона на мобильных устройствах
+                if (this.classList.contains('phone') && !isMobileDevice()) {
+                    e.preventDefault();
+                    alert('Phone: +374 77 960 608');
+                }
+            });
+        });
+        
+        // Проверка на мобильное устройство
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+    </script>
+</body>
+</html>
